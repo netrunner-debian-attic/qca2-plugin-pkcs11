@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+  
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/utils.mk
+include /usr/share/cdbs/1/class/makefile.mk
+
+# QMake targets
+DEB_MAKE_INSTALL_TARGET = install INSTALL_ROOT=$(DEB_DESTDIR)
+DEB_MAKE_CLEAN_TARGET = distclean
+
+# QConf breaks with CDBS default DEB_MAKE_INVOKE
+DEB_MAKE_INVOKE = $(DEB_MAKE_ENVVARS) make -C $(DEB_BUILDDIR)
+
+# QConf configure script rule derived from qmake.mk
+# DEB_BUILD_OPTIONS is not supported!
+common-configure-arch common-configure-indep:: common-configure-impl
+common-configure-impl:: $(DEB_BUILDDIR)/Makefile
+$(DEB_BUILDDIR)/Makefile:
+	cd $(DEB_BUILDDIR) && ./configure --qtdir=/usr/share/qt4
+
+# Clean up QConf
+clean::
+	rm -rf conf.log conf.pri lib/
+
+
+# No debug for now
+binary-post-install/libqca2-plugin-pkcs11::
+	rm $(DEB_DESTDIR)/usr/lib/qt4/plugins/crypto/libqca-pkcs11.so.debug

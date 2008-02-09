@@ -1,0 +1,19 @@
+Source: qca2-plugin-pkcs11
+Section: libs
+Priority: optional
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Matthew Rosewarne <mrosewarne@inoutbox.com>
+Build-Depends: cdbs (>= 0.4.51), debhelper (>= 6), libqca2-dev (>=2.0.0), libpkcs11-helper1-dev
+Standards-Version: 3.7.3
+Homepage: http://delta.affinix.com/qca/
+
+Package: libqca2-plugin-pkcs11
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PKCS#11 smart card support for the Qt Cryptographic Architecture
+ The Qt Cryptographic Architecture provides a straightforward and cross-
+ platform API for a range of cryptographic features, including SSL/TLS,
+ X.509 certificates, SASL, OpenPGP, S/MIME CMS, and smart cards.
+ .
+ This plugin provides support for PKCS#11 "Cryptoki" smart cards using the
+ OpenSC pkcs11-helper library.
